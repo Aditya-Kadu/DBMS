@@ -1,20 +1,18 @@
 import mysql.connector
 
-# Function to connect to MySQL database
 def connect_to_mysql():
     try:
         db_connection = mysql.connector.connect(
-            host="localhost",
-            user="your_username",
-            password="your_password",
-            database="your_database"
+            host="10.10.13.76",
+            user="te31234",
+            password="te31234",
+            database="te31234db"
         )
         return db_connection
     except mysql.connector.Error as e:
         print(f"Error: {e}")
         return None
 
-# Function to add a record
 def add_record(connection, cursor):
     name = input("Enter name: ")
     age = input("Enter age: ")
@@ -22,14 +20,12 @@ def add_record(connection, cursor):
     connection.commit()
     print("Record added successfully!")
 
-# Function to delete a record
 def delete_record(connection, cursor):
     id_to_delete = input("Enter the ID to delete: ")
     cursor.execute("DELETE FROM students WHERE id = %s", (id_to_delete,))
     connection.commit()
     print("Record deleted successfully!")
 
-# Function to edit a record
 def edit_record(connection, cursor):
     id_to_edit = input("Enter the ID to edit: ")
     new_name = input("Enter new name: ")
@@ -38,14 +34,12 @@ def edit_record(connection, cursor):
     connection.commit()
     print("Record edited successfully!")
 
-# Function to list all records
 def list_records(cursor):
     cursor.execute("SELECT * FROM students")
     records = cursor.fetchall()
     for record in records:
         print(f"ID: {record[0]}, Name: {record[1]}, Age: {record[2]}")
 
-# Main menu
 def main_menu():
     connection = connect_to_mysql()
     if connection is None:
